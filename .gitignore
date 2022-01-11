@@ -1,2 +1,7 @@
 node_modules/
 .env
+.DS_Store
+package-lock.json
+yarn.lock
+metadata/players-nft
+front_end/src/contracts

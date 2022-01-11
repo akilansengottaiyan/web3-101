@@ -1,0 +1,40 @@
+{
+  "players": [
+    {
+      "name": "Virat",
+      "role": "Bat",
+      "image": "",
+      "attributes": [{ "trait_type": "Team", "value": "RCB" }]
+    },
+    {
+      "name": "KL Rahul",
+      "role": "Bat",
+      "image": "",
+      "attributes": [{ "trait_type": "Team", "value": "CSK" }]
+    },
+    {
+      "name": "Bumrah",
+      "role": "Bowl",
+      "image": "",
+      "attributes": [{ "trait_type": "Team", "value": "RCB" }]
+    },
+    {
+      "name": "Rashid",
+      "role": "Bowl",
+      "image": "",
+      "attributes": [{ "trait_type": "Team", "value": "CSK" }]
+    },
+    {
+      "name": "Jadeja",
+      "role": "Allrounder",
+      "image": "",
+      "attributes": [{ "trait_type": "Team", "value": "CSK" }]
+    },
+    {
+      "name": "Russell",
+      "role": "Allrounder",
+      "image": "",
+      "attributes": [{ "trait_type": "Team", "value": "RCB" }]
+    }
+  ]
+}

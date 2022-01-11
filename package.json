@@ -1,6 +1,15 @@
 {
   "dependencies": {
+    "@chainlink/contracts": "^0.3.0",
+    "@openzeppelin/contracts": "^4.4.1",
     "@truffle/hdwallet-provider": "^2.0.0",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "web3": "^1.6.1",
+    "web3.storage": "^3.5.2"
+  },
+  "scripts": {
+    "populate-playerstoken-rinkeby": "truffle migrate --reset --network rinkeby && truffle exec scripts/createPlayers.js --network rinkeby",
+    "populate-playerstoken": "truffle migrate --reset && truffle exec scripts/createPlayers.js",
+    "run-mainnet-fork": "ganache-cli --fork"
   }
 }
