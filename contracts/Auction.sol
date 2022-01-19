@@ -1,18 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-import '@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol';
+import '@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol';
 import '@openzeppelin/contracts/utils/math/Math.sol';
-import '@openzeppelin/contracts/access/Ownable.sol';
 import './PlayerToken.sol';
 import './Participants.sol';
 
-contract Auction is PlayerToken, Participants {
+contract Auction is Participants, PlayerToken {
   using Math for *;
   bool isAuctionLive;
   uint256 currentPlayerIndex;
-  uint256 a = 100;
-  uint256 b = 7;
-  uint256 abc = uint256(100) / 7;
   struct Bid {
     address bidder;
     uint256 bidAmount;
@@ -23,7 +19,10 @@ contract Auction is PlayerToken, Participants {
   event AuctionEnded();
   event PlayerSold(Bid indexed bid, uint256 indexed soldPlayer);
 
-  constructor(address priceFeedAddress) Participants(priceFeedAddress) {}
+  function initialize(address _priceFeedAddress) public override initializer {
+    Participants.initialize(_priceFeedAddress);
+    PlayerToken.initialize();
+  }
 
   modifier liveAuction() {
     require(isAuctionLive == true, 'Auction is not live');

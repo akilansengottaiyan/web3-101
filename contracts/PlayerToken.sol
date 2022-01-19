@@ -1,13 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-import '@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol';
-import '@openzeppelin/contracts/access/Ownable.sol';
+import '@openzeppelin/contracts-upgradeable/token/ERC721/extensions/ERC721URIStorageUpgradeable.sol';
+import '@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol';
 
-contract PlayerToken is ERC721URIStorage, Ownable {
+contract PlayerToken is ERC721URIStorageUpgradeable, OwnableUpgradeable {
   uint256 playersCount;
 
-  constructor() ERC721('Player', 'Player') {
+  function initialize() public initializer {
     playersCount = 0;
+    __ERC721_init('Player', 'Player');
+    __Ownable_init();
   }
 
   function createPlayer(string calldata _uri) public onlyOwner {

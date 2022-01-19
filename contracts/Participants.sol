@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-import '@openzeppelin/contracts/access/Ownable.sol';
 import '@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol';
 import '@openzeppelin/contracts/utils/Strings.sol';
+import '@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol';
+import '@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol';
 
-contract Participants is Ownable {
-  uint256 maxParticipants = 5;
+contract Participants is OwnableUpgradeable {
+  uint256 maxParticipants;
   AggregatorV3Interface public priceFeed;
   struct Participant {
     uint256 id;
@@ -21,30 +22,20 @@ contract Participants is Ownable {
 
   mapping(address => uint256) isParticipantPresent;
 
-  constructor(address _priceFeedAddress) {
+  function initialize(address _priceFeedAddress) public virtual initializer {
+    __Ownable_init();
     priceFeedAddress = _priceFeedAddress;
     priceFeed = AggregatorV3Interface(priceFeedAddress);
+    maxParticipants = 5;
   }
 
   function getPriceFeedAddress() external view returns (address) {
     return priceFeedAddress;
   }
 
-  function getPriceFeed() external view returns (AggregatorV3Interface) {
-    return priceFeed;
-  }
-
   function getLatestPrice() public view returns (int256) {
     (, int256 price, , , ) = priceFeed.latestRoundData();
     return price;
-  }
-
-  function tempDescription() public view returns (string memory) {
-    return priceFeed.description();
-  }
-
-  function temp() public view returns (uint256) {
-    return uint256(getLatestPrice() / 10**8);
   }
 
   function addParticipant(string memory name) public payable {
@@ -88,6 +79,4 @@ contract Participants is Ownable {
   function modifyMaxParticipants(uint256 newValue) public onlyOwner {
     maxParticipants = newValue;
   }
-
-  //   setApprovalForAll(address operator, bool _approved)
 }
